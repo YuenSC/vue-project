@@ -1,39 +1,25 @@
-# vue-project
+# Demo Assignment
 
-This template should help get you started developing with Vue 3 in Vite.
+Ref:　[Image](/task.png)
 
-## Recommended IDE Setup
+You can also check the demo in [here](https://demo-assignment.vercel.app/)
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+## Start the project
 
-## Type Support for `.vue` Imports in TS
-
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
-
-```sh
-pnpm install
 ```
-
-### Compile and Hot-Reload for Development
-
-```sh
+pnpm install
 pnpm dev
 ```
 
-### Type-Check, Compile and Minify for Production
+## Decomposition
 
-```sh
-pnpm build
-```
+- NavBar Layout
+- Table Component
+- Table Top Search Component (Collapsible, Input, Select, Date Range)
+- Table Body Component (Select -> Calculate Sum, Sort, Pagination, Custom Footer)
 
-### Lint with [ESLint](https://eslint.org/)
+## Stack
 
-```sh
-pnpm lint
-```
+- Vue UI Library
+- Vue Router with search params as state
+- table library or vuetify table
