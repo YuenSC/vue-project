@@ -1,5 +1,8 @@
 import type { ColumnDef } from '@tanstack/vue-table'
 import type { Product } from '../types/Product'
+import { h } from 'vue'
+import ProductPaymentMethodCell from '@/components/product/ProductPaymentMethodCell.vue'
+import ProductShippingCell from '@/components/product/ProductShippingCell.vue'
 
 export const productColumns: ColumnDef<Product>[] = [
   {
@@ -27,18 +30,12 @@ export const productColumns: ColumnDef<Product>[] = [
   },
   {
     accessorKey: 'payment',
-    header: 'Payment Status',
-    cell: ({ getValue }) => {
-      const { method, status } = getValue() as Product['payment']
-      return `${method} / ${status}`
-    }
+    header: () => h('div', { class: 'flex justify-center' }, 'Payment Method'),
+    cell: ({ getValue }) => h(ProductPaymentMethodCell, getValue() as Product['payment'])
   },
   {
     accessorKey: 'shipping',
-    header: 'Delivery Status',
-    cell: ({ getValue }) => {
-      const { isOkForDispatch, method, status } = getValue() as Product['shipping']
-      return `${method} / ${status} / ${isOkForDispatch ? 'Ready' : 'Not Ready'}`
-    }
+    header: () => h('div', { class: 'flex justify-center' }, 'Delivery Status'),
+    cell: ({ getValue }) => h(ProductShippingCell, getValue() as Product['shipping'])
   }
 ]

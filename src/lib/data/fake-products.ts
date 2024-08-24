@@ -2,6 +2,7 @@ import { PaymentMethod } from '@/lib/types/enum/PaymentMethod'
 import { ShippingMethod } from '@/lib/types/enum/ShippingMethod'
 import { ShippingStatus } from '@/lib/types/enum/ShippingStatus'
 import type { Product } from '@/lib/types/Product'
+import { PaymentStatus } from '../types/enum/PaymentStatus'
 
 export const fakeProducts: Product[] = [
   {
@@ -14,13 +15,13 @@ export const fakeProducts: Product[] = [
       companyName: 'Acme Corp'
     },
     payment: {
-      status: 'Paid',
+      status: PaymentStatus.authorized,
       method: PaymentMethod.hsbc
     },
     shipping: {
       status: ShippingStatus.completed,
       method: ShippingMethod.delivery,
-      isOkForDispatch: true
+      isOkForDispatch: false
     }
   },
   {
@@ -33,13 +34,13 @@ export const fakeProducts: Product[] = [
       companyName: 'Widgets Inc'
     },
     payment: {
-      status: 'Pending',
+      status: PaymentStatus.pending,
       method: PaymentMethod.payme
     },
     shipping: {
       status: ShippingStatus.processing,
       method: ShippingMethod.pickup,
-      isOkForDispatch: false
+      isOkForDispatch: true
     }
   },
   {
@@ -52,13 +53,13 @@ export const fakeProducts: Product[] = [
       companyName: 'Gadgets Ltd'
     },
     payment: {
-      status: 'Paid',
+      status: PaymentStatus.authorized,
       method: PaymentMethod.fps
     },
     shipping: {
       status: ShippingStatus.readyToDeliver,
       method: ShippingMethod.delivery,
-      isOkForDispatch: true
+      isOkForDispatch: false
     }
   },
   {
@@ -71,7 +72,7 @@ export const fakeProducts: Product[] = [
       companyName: 'Novelty Inc'
     },
     payment: {
-      status: 'Paid',
+      status: PaymentStatus.authorized,
       method: PaymentMethod.applePay
     },
     shipping: {
@@ -90,13 +91,13 @@ export const fakeProducts: Product[] = [
       companyName: 'Tech Solutions'
     },
     payment: {
-      status: 'Pending',
+      status: PaymentStatus.rejected,
       method: PaymentMethod.hsbc
     },
     shipping: {
       status: ShippingStatus.cancelled,
       method: ShippingMethod.delivery,
-      isOkForDispatch: true
+      isOkForDispatch: false
     }
   },
   {
@@ -109,13 +110,13 @@ export const fakeProducts: Product[] = [
       companyName: 'Lifestyle Boutique'
     },
     payment: {
-      status: 'Paid',
+      status: PaymentStatus.authorized,
       method: PaymentMethod.payme
     },
     shipping: {
       status: ShippingStatus.processing,
       method: ShippingMethod.pickup,
-      isOkForDispatch: true
+      isOkForDispatch: false
     }
   },
   {
@@ -128,13 +129,13 @@ export const fakeProducts: Product[] = [
       companyName: 'Electronics Corp'
     },
     payment: {
-      status: 'Paid',
+      status: PaymentStatus.authorized,
       method: PaymentMethod.fps
     },
     shipping: {
       status: ShippingStatus.readyToDeliver,
       method: ShippingMethod.delivery,
-      isOkForDispatch: true
+      isOkForDispatch: false
     }
   },
   {
@@ -147,7 +148,7 @@ export const fakeProducts: Product[] = [
       companyName: 'Crafts Emporium'
     },
     payment: {
-      status: 'Pending',
+      status: PaymentStatus.pending,
       method: PaymentMethod.applePay
     },
     shipping: {
@@ -166,13 +167,13 @@ export const fakeProducts: Product[] = [
       companyName: 'Tech Solutions'
     },
     payment: {
-      status: 'Paid',
+      status: PaymentStatus.authorized,
       method: PaymentMethod.hsbc
     },
     shipping: {
       status: ShippingStatus.cancelled,
       method: ShippingMethod.delivery,
-      isOkForDispatch: true
+      isOkForDispatch: false
     }
   },
   {
@@ -185,7 +186,7 @@ export const fakeProducts: Product[] = [
       companyName: 'Homegoods Ltd'
     },
     payment: {
-      status: 'Paid',
+      status: PaymentStatus.authorized,
       method: PaymentMethod.payme
     },
     shipping: {
@@ -204,13 +205,13 @@ export const fakeProducts: Product[] = [
       companyName: 'Gadgets Corp'
     },
     payment: {
-      status: 'Paid',
+      status: PaymentStatus.authorized,
       method: PaymentMethod.fps
     },
     shipping: {
       status: ShippingStatus.readyToDeliver,
       method: ShippingMethod.delivery,
-      isOkForDispatch: true
+      isOkForDispatch: false
     }
   },
   {
@@ -223,7 +224,7 @@ export const fakeProducts: Product[] = [
       companyName: 'Novelty Boutique'
     },
     payment: {
-      status: 'Pending',
+      status: PaymentStatus.pending,
       method: PaymentMethod.applePay
     },
     shipping: {
@@ -242,13 +243,13 @@ export const fakeProducts: Product[] = [
       companyName: 'Tech Solutions'
     },
     payment: {
-      status: 'Paid',
+      status: PaymentStatus.authorized,
       method: PaymentMethod.hsbc
     },
     shipping: {
       status: ShippingStatus.cancelled,
       method: ShippingMethod.delivery,
-      isOkForDispatch: true
+      isOkForDispatch: false
     }
   },
   {
@@ -261,13 +262,13 @@ export const fakeProducts: Product[] = [
       companyName: 'Lifestyle Boutique'
     },
     payment: {
-      status: 'Paid',
+      status: PaymentStatus.authorized,
       method: PaymentMethod.payme
     },
     shipping: {
       status: ShippingStatus.processing,
       method: ShippingMethod.pickup,
-      isOkForDispatch: true
+      isOkForDispatch: false
     }
   },
   {
@@ -280,13 +281,13 @@ export const fakeProducts: Product[] = [
       companyName: 'Electronics Corp'
     },
     payment: {
-      status: 'Paid',
+      status: PaymentStatus.authorized,
       method: PaymentMethod.fps
     },
     shipping: {
       status: ShippingStatus.readyToDeliver,
       method: ShippingMethod.delivery,
-      isOkForDispatch: true
+      isOkForDispatch: false
     }
   },
   {
@@ -299,7 +300,7 @@ export const fakeProducts: Product[] = [
       companyName: 'Crafts Emporium'
     },
     payment: {
-      status: 'Pending',
+      status: PaymentStatus.pending,
       method: PaymentMethod.applePay
     },
     shipping: {
@@ -318,13 +319,13 @@ export const fakeProducts: Product[] = [
       companyName: 'Tech Solutions'
     },
     payment: {
-      status: 'Paid',
+      status: PaymentStatus.authorized,
       method: PaymentMethod.hsbc
     },
     shipping: {
       status: ShippingStatus.cancelled,
       method: ShippingMethod.delivery,
-      isOkForDispatch: true
+      isOkForDispatch: false
     }
   },
   {
@@ -337,7 +338,7 @@ export const fakeProducts: Product[] = [
       companyName: 'Homegoods Ltd'
     },
     payment: {
-      status: 'Paid',
+      status: PaymentStatus.authorized,
       method: PaymentMethod.payme
     },
     shipping: {
@@ -356,13 +357,13 @@ export const fakeProducts: Product[] = [
       companyName: 'Gadgets Corp'
     },
     payment: {
-      status: 'Paid',
+      status: PaymentStatus.authorized,
       method: PaymentMethod.fps
     },
     shipping: {
       status: ShippingStatus.readyToDeliver,
       method: ShippingMethod.delivery,
-      isOkForDispatch: true
+      isOkForDispatch: false
     }
   },
   {
@@ -375,7 +376,7 @@ export const fakeProducts: Product[] = [
       companyName: 'Novelty Boutique'
     },
     payment: {
-      status: 'Pending',
+      status: PaymentStatus.pending,
       method: PaymentMethod.applePay
     },
     shipping: {
@@ -394,13 +395,13 @@ export const fakeProducts: Product[] = [
       companyName: 'Tech Solutions'
     },
     payment: {
-      status: 'Paid',
+      status: PaymentStatus.authorized,
       method: PaymentMethod.hsbc
     },
     shipping: {
       status: ShippingStatus.cancelled,
       method: ShippingMethod.delivery,
-      isOkForDispatch: true
+      isOkForDispatch: false
     }
   },
   {
@@ -413,13 +414,13 @@ export const fakeProducts: Product[] = [
       companyName: 'Lifestyle Boutique'
     },
     payment: {
-      status: 'Paid',
+      status: PaymentStatus.authorized,
       method: PaymentMethod.payme
     },
     shipping: {
       status: ShippingStatus.processing,
       method: ShippingMethod.pickup,
-      isOkForDispatch: true
+      isOkForDispatch: false
     }
   },
   {
@@ -432,13 +433,13 @@ export const fakeProducts: Product[] = [
       companyName: 'Electronics Corp'
     },
     payment: {
-      status: 'Paid',
+      status: PaymentStatus.authorized,
       method: PaymentMethod.fps
     },
     shipping: {
       status: ShippingStatus.readyToDeliver,
       method: ShippingMethod.delivery,
-      isOkForDispatch: true
+      isOkForDispatch: false
     }
   },
   {
@@ -451,7 +452,7 @@ export const fakeProducts: Product[] = [
       companyName: 'Crafts Emporium'
     },
     payment: {
-      status: 'Pending',
+      status: PaymentStatus.pending,
       method: PaymentMethod.applePay
     },
     shipping: {
@@ -470,13 +471,13 @@ export const fakeProducts: Product[] = [
       companyName: 'Tech Solutions'
     },
     payment: {
-      status: 'Paid',
+      status: PaymentStatus.authorized,
       method: PaymentMethod.hsbc
     },
     shipping: {
       status: ShippingStatus.cancelled,
       method: ShippingMethod.delivery,
-      isOkForDispatch: true
+      isOkForDispatch: false
     }
   },
   {
@@ -489,7 +490,7 @@ export const fakeProducts: Product[] = [
       companyName: 'Homegoods Ltd'
     },
     payment: {
-      status: 'Paid',
+      status: PaymentStatus.authorized,
       method: PaymentMethod.payme
     },
     shipping: {
@@ -508,13 +509,13 @@ export const fakeProducts: Product[] = [
       companyName: 'Gadgets Corp'
     },
     payment: {
-      status: 'Paid',
+      status: PaymentStatus.authorized,
       method: PaymentMethod.fps
     },
     shipping: {
       status: ShippingStatus.readyToDeliver,
       method: ShippingMethod.delivery,
-      isOkForDispatch: true
+      isOkForDispatch: false
     }
   },
   {
@@ -527,7 +528,7 @@ export const fakeProducts: Product[] = [
       companyName: 'Novelty Boutique'
     },
     payment: {
-      status: 'Pending',
+      status: PaymentStatus.pending,
       method: PaymentMethod.applePay
     },
     shipping: {

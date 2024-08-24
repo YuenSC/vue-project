@@ -1,4 +1,5 @@
 import type { PaymentMethod } from './enum/PaymentMethod'
+import type { PaymentStatus } from './enum/PaymentStatus'
 import type { ShippingMethod } from './enum/ShippingMethod'
 import type { ShippingStatus } from './enum/ShippingStatus'
 
@@ -12,7 +13,7 @@ export interface Product {
     companyName: string
   }
   payment: {
-    status: string
+    status: PaymentStatus
     method: PaymentMethod
   }
   shipping: {
