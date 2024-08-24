@@ -1,14 +1,14 @@
-import { PaymentMethod } from '@/types/enum/PaymentMethod'
-import { ShippingMethod } from '@/types/enum/ShippingMethod'
-import { ShippingStatus } from '@/types/enum/ShippingStatus'
-import type { Product } from '@/types/Product'
+import { PaymentMethod } from '@/lib/types/enum/PaymentMethod'
+import { ShippingMethod } from '@/lib/types/enum/ShippingMethod'
+import { ShippingStatus } from '@/lib/types/enum/ShippingStatus'
+import type { Product } from '@/lib/types/Product'
 
 export const fakeProducts: Product[] = [
   {
     id: '1',
     orderDate: '2023-06-15',
     billNo: 'INV-001',
-    amount: 499.99,
+    amount: 12499.99,
     buyer: {
       name: 'John Doe',
       companyName: 'Acme Corp'

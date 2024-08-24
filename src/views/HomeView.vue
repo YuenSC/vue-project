@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { fakeProducts } from '@/data/fake-products'
-import type { Product } from '@/types/Product'
-import Column from 'primevue/column'
-import DataTable from 'primevue/datatable'
+import DataTable from '@/components/DataTable.vue'
+import { fakeProducts } from '@/lib/data/fake-products'
+import { productColumns } from '@/lib/table-columns/productColumns'
+import type { Product } from '@/lib/types/Product'
 import { ref } from 'vue'
 
 const products = ref<Product[]>(fakeProducts)
@@ -10,14 +10,6 @@ const products = ref<Product[]>(fakeProducts)
 
 <template>
   <main class="border p-4">
-    <span>Test</span>
-    <DataTable :value="products" tableStyle="min-width: 50rem">
-      <Column field="orderDate" header="Code"></Column>
-      <Column field="billNo" header="Name"></Column>
-      <Column field="amount" header="Category"></Column>
-      <Column field="buyer" header="Quantity"></Column>
-      <Column field="payment" header="Quantity"></Column>
-      <Column field="shipping" header="Quantity"></Column>
-    </DataTable>
+    <DataTable :columns="productColumns" :data="products" />
   </main>
 </template>

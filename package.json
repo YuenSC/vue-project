@@ -13,8 +13,14 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@tanstack/vue-table": "^8.20.4",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.1",
+    "lucide-vue-next": "^0.435.0",
     "primeicons": "^7.0.0",
-    "primevue": "^4.0.5",
+    "radix-vue": "^1.9.4",
+    "tailwind-merge": "^2.5.2",
+    "tailwindcss-animate": "^1.0.7",
     "tailwindcss-primeui": "^0.3.4",
     "vue": "^3.4.29",
     "vue-router": "^4.3.3"
