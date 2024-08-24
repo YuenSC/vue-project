@@ -3,11 +3,17 @@ import type { Product } from '../types/Product'
 import { h } from 'vue'
 import ProductPaymentMethodCell from '@/components/product/ProductPaymentMethodCell.vue'
 import ProductShippingCell from '@/components/product/ProductShippingCell.vue'
+import { format } from 'date-fns'
 
 export const productColumns: ColumnDef<Product>[] = [
   {
     accessorKey: 'orderDate',
-    header: 'Order Date'
+    header: 'Order Date',
+    cell: ({ getValue }) => {
+      // format to YYYY-MM-DD HH:mm:ss:ms use date-fns
+      const iso = getValue() as string
+      return format(new Date(iso), 'yyyy-MM-dd HH:mm:ss')
+    }
   },
   {
     accessorKey: 'billNo',

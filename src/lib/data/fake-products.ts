@@ -3,11 +3,56 @@ import { ShippingMethod } from '@/lib/types/enum/ShippingMethod'
 import { ShippingStatus } from '@/lib/types/enum/ShippingStatus'
 import type { Product } from '@/lib/types/Product'
 import { PaymentStatus } from '../types/enum/PaymentStatus'
+import type { ApiPaginatedResponse } from '../types/ApiResponse'
+import { SortDirection, type ListQuery } from '../types/ListQuery'
+
+function getNestedValue(obj: any, path: string) {
+  return path.split('.').reduce((acc, part) => acc && acc[part], obj)
+}
+
+export const getProducts = async ({
+  page = 1,
+  limit = 10,
+  sortBy = 'orderDate',
+  sortDesc = SortDirection.DESC
+}: ListQuery) => {
+  await new Promise((resolve) => setTimeout(resolve, 1000))
+
+  const productCopies = [...fakeProducts]
+
+  if (sortBy && Object.prototype.hasOwnProperty.call(productCopies[0], sortBy.split('.')[0]))
+    productCopies.sort((a, b) => {
+      const aValue = getNestedValue(a, sortBy)
+      const bValue = getNestedValue(b, sortBy)
+
+      if (sortDesc === SortDirection.DESC) {
+        return aValue > bValue ? -1 : 1
+      }
+      return aValue > bValue ? 1 : -1
+    })
+
+  const productInPage = productCopies.slice((page - 1) * limit, page * limit)
+
+  return {
+    data: productInPage,
+    meta: {
+      itemCount: productInPage.length,
+      totalItems: productCopies.length,
+      itemsPerPage: limit,
+      totalPages: Math.ceil(productCopies.length / limit),
+      currentPage: page
+    }
+  } as ApiPaginatedResponse<Product>
+}
+
+const generateOrderDate = () => {
+  return new Date(new Date().getTime() - Math.floor(Math.random() * 10000000000)).toISOString()
+}
 
 export const fakeProducts: Product[] = [
   {
     id: '1',
-    orderDate: '2023-06-15',
+    orderDate: generateOrderDate(),
     billNo: 'INV-001',
     amount: 12499.99,
     buyer: {
@@ -26,7 +71,7 @@ export const fakeProducts: Product[] = [
   },
   {
     id: '2',
-    orderDate: '2023-07-01',
+    orderDate: generateOrderDate(),
     billNo: 'INV-002',
     amount: 199.5,
     buyer: {
@@ -45,7 +90,7 @@ export const fakeProducts: Product[] = [
   },
   {
     id: '3',
-    orderDate: '2023-07-20',
+    orderDate: generateOrderDate(),
     billNo: 'INV-003',
     amount: 299.99,
     buyer: {
@@ -64,7 +109,7 @@ export const fakeProducts: Product[] = [
   },
   {
     id: '4',
-    orderDate: '2023-08-01',
+    orderDate: generateOrderDate(),
     billNo: 'INV-004',
     amount: 149.75,
     buyer: {
@@ -83,7 +128,7 @@ export const fakeProducts: Product[] = [
   },
   {
     id: '5',
-    orderDate: '2023-08-10',
+    orderDate: generateOrderDate(),
     billNo: 'INV-005',
     amount: 399.99,
     buyer: {
@@ -102,7 +147,7 @@ export const fakeProducts: Product[] = [
   },
   {
     id: '6',
-    orderDate: '2023-06-16',
+    orderDate: generateOrderDate(),
     billNo: 'INV-006',
     amount: 249.99,
     buyer: {
@@ -121,7 +166,7 @@ export const fakeProducts: Product[] = [
   },
   {
     id: '7',
-    orderDate: '2023-07-02',
+    orderDate: generateOrderDate(),
     billNo: 'INV-007',
     amount: 399.99,
     buyer: {
@@ -140,7 +185,7 @@ export const fakeProducts: Product[] = [
   },
   {
     id: '8',
-    orderDate: '2023-07-21',
+    orderDate: generateOrderDate(),
     billNo: 'INV-008',
     amount: 149.75,
     buyer: {
@@ -159,7 +204,7 @@ export const fakeProducts: Product[] = [
   },
   {
     id: '9',
-    orderDate: '2023-08-02',
+    orderDate: generateOrderDate(),
     billNo: 'INV-009',
     amount: 599.99,
     buyer: {
@@ -178,7 +223,7 @@ export const fakeProducts: Product[] = [
   },
   {
     id: '10',
-    orderDate: '2023-08-11',
+    orderDate: generateOrderDate(),
     billNo: 'INV-010',
     amount: 199.5,
     buyer: {
@@ -197,7 +242,7 @@ export const fakeProducts: Product[] = [
   },
   {
     id: '11',
-    orderDate: '2023-06-17',
+    orderDate: generateOrderDate(),
     billNo: 'INV-011',
     amount: 299.99,
     buyer: {
@@ -216,7 +261,7 @@ export const fakeProducts: Product[] = [
   },
   {
     id: '12',
-    orderDate: '2023-07-03',
+    orderDate: generateOrderDate(),
     billNo: 'INV-012',
     amount: 149.75,
     buyer: {
@@ -235,7 +280,7 @@ export const fakeProducts: Product[] = [
   },
   {
     id: '13',
-    orderDate: '2023-07-22',
+    orderDate: generateOrderDate(),
     billNo: 'INV-013',
     amount: 399.99,
     buyer: {
@@ -254,7 +299,7 @@ export const fakeProducts: Product[] = [
   },
   {
     id: '14',
-    orderDate: '2023-08-03',
+    orderDate: generateOrderDate(),
     billNo: 'INV-014',
     amount: 249.99,
     buyer: {
@@ -273,7 +318,7 @@ export const fakeProducts: Product[] = [
   },
   {
     id: '15',
-    orderDate: '2023-08-12',
+    orderDate: generateOrderDate(),
     billNo: 'INV-015',
     amount: 399.99,
     buyer: {
@@ -292,7 +337,7 @@ export const fakeProducts: Product[] = [
   },
   {
     id: '16',
-    orderDate: '2023-06-18',
+    orderDate: generateOrderDate(),
     billNo: 'INV-016',
     amount: 149.75,
     buyer: {
@@ -311,7 +356,7 @@ export const fakeProducts: Product[] = [
   },
   {
     id: '17',
-    orderDate: '2023-07-04',
+    orderDate: generateOrderDate(),
     billNo: 'INV-017',
     amount: 599.99,
     buyer: {
@@ -330,7 +375,7 @@ export const fakeProducts: Product[] = [
   },
   {
     id: '18',
-    orderDate: '2023-07-23',
+    orderDate: generateOrderDate(),
     billNo: 'INV-018',
     amount: 199.5,
     buyer: {
@@ -349,7 +394,7 @@ export const fakeProducts: Product[] = [
   },
   {
     id: '19',
-    orderDate: '2023-08-04',
+    orderDate: generateOrderDate(),
     billNo: 'INV-019',
     amount: 299.99,
     buyer: {
@@ -368,7 +413,7 @@ export const fakeProducts: Product[] = [
   },
   {
     id: '20',
-    orderDate: '2023-08-13',
+    orderDate: generateOrderDate(),
     billNo: 'INV-020',
     amount: 149.75,
     buyer: {
@@ -387,7 +432,7 @@ export const fakeProducts: Product[] = [
   },
   {
     id: '21',
-    orderDate: '2023-06-19',
+    orderDate: generateOrderDate(),
     billNo: 'INV-021',
     amount: 399.99,
     buyer: {
@@ -406,7 +451,7 @@ export const fakeProducts: Product[] = [
   },
   {
     id: '22',
-    orderDate: '2023-07-05',
+    orderDate: generateOrderDate(),
     billNo: 'INV-022',
     amount: 249.99,
     buyer: {
@@ -425,7 +470,7 @@ export const fakeProducts: Product[] = [
   },
   {
     id: '23',
-    orderDate: '2023-07-24',
+    orderDate: generateOrderDate(),
     billNo: 'INV-023',
     amount: 399.99,
     buyer: {
@@ -444,7 +489,7 @@ export const fakeProducts: Product[] = [
   },
   {
     id: '24',
-    orderDate: '2023-08-05',
+    orderDate: generateOrderDate(),
     billNo: 'INV-024',
     amount: 149.75,
     buyer: {
@@ -463,7 +508,7 @@ export const fakeProducts: Product[] = [
   },
   {
     id: '25',
-    orderDate: '2023-08-14',
+    orderDate: generateOrderDate(),
     billNo: 'INV-025',
     amount: 599.99,
     buyer: {
@@ -482,7 +527,7 @@ export const fakeProducts: Product[] = [
   },
   {
     id: '26',
-    orderDate: '2023-06-20',
+    orderDate: generateOrderDate(),
     billNo: 'INV-026',
     amount: 199.5,
     buyer: {
@@ -501,7 +546,7 @@ export const fakeProducts: Product[] = [
   },
   {
     id: '27',
-    orderDate: '2023-07-06',
+    orderDate: generateOrderDate(),
     billNo: 'INV-027',
     amount: 299.99,
     buyer: {
@@ -520,7 +565,7 @@ export const fakeProducts: Product[] = [
   },
   {
     id: '28',
-    orderDate: '2023-07-25',
+    orderDate: generateOrderDate(),
     billNo: 'INV-028',
     amount: 149.75,
     buyer: {
