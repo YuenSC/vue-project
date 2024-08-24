@@ -22,14 +22,14 @@ import { getValidatedListQuery } from '@/lib/types/ListQuery'
 import { ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
-const { meta } = defineProps<{ meta: PaginationMeta }>()
+const props = defineProps<{ meta: PaginationMeta }>()
 
 const router = useRouter()
 const route = useRoute()
 
 const LIMITS = [25, 50, 100, 150] // Define constants
 
-const pageRef = ref(meta.currentPage.toString())
+const pageRef = ref(props.meta.currentPage.toString())
 
 const updatePage = (_page: number | string) => {
   const { page } = getValidatedListQuery({ page: _page as string })
@@ -46,6 +46,15 @@ const updateLimit = (limit: number) => {
     query: { ...route.query, limit, page: 1 }
   })
 }
+
+watch(
+  () => route.query.page,
+  (page) => {
+    const query = getValidatedListQuery({ page: page as string })
+    pageRef.value = query.page?.toString() || '1'
+  },
+  { immediate: true }
+)
 </script>
 
 <template>
