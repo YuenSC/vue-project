@@ -19,7 +19,7 @@ const fetchProducts = async () => {
   loading.value = false
 }
 
-onMounted(async () => fetchProducts())
+onMounted(() => fetchProducts())
 watch(() => route.query, fetchProducts, { deep: true })
 </script>
 
@@ -33,6 +33,7 @@ watch(() => route.query, fetchProducts, { deep: true })
       :data="productsApiResponse?.data ?? []"
       :is-loading="loading"
       :list-query="route.query"
+      :meta="productsApiResponse?.meta"
     />
   </main>
 </template>

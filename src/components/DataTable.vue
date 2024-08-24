@@ -10,15 +10,20 @@ import {
   TableHeader,
   TableRow
 } from '@/components/ui/table'
-import { type ListQuery } from '@/lib/types/ListQuery'
+import { DEFAULT_LIMIT, type ListQuery } from '@/lib/types/ListQuery'
 import TableSortButton from './ui/table/TableSortButton.vue'
 import { useRoute, useRouter } from 'vue-router'
+import TableFooter from './ui/table/TableFooter.vue'
+import DataTablePagination from './DataTablePagination.vue'
+import type { PaginationMeta } from '@/lib/types/ApiResponse'
+import { watch } from 'vue'
 
 const props = defineProps<{
   columns: ColumnDef<TData, TValue>[]
   data: TData[]
   listQuery?: ListQuery
   isLoading?: boolean
+  meta?: PaginationMeta
 }>()
 
 const table = useVueTable({
@@ -40,14 +45,21 @@ const updateSort = (payload?: { sortBy: string; sortDirection: SortDirection }) 
     delete query.sortBy
     delete query.sortDirection
     router.push({
-      query: { ...query, page: 1, limit: 10 }
+      query: { ...query, page: 1, limit: DEFAULT_LIMIT }
     })
   } else {
     router.push({
-      query: { ...route.query, ...payload, page: 1, limit: 10 }
+      query: { ...route.query, ...payload, page: 1, limit: DEFAULT_LIMIT }
     })
   }
 }
+
+watch(
+  () => props.meta,
+  () => {
+    console.log('meta', props.meta)
+  }
+)
 </script>
 
 <template>
@@ -103,6 +115,14 @@ const updateSort = (payload?: { sortBy: string; sortDirection: SortDirection }) 
           </TableRow>
         </template>
       </TableBody>
+
+      <TableFooter v-if="meta">
+        <TableRow>
+          <TableCell :colspan="columns.length">
+            <DataTablePagination :meta="meta" />
+          </TableCell>
+        </TableRow>
+      </TableFooter>
     </Table>
   </div>
 </template>

@@ -2,9 +2,9 @@ import { PaymentMethod } from '@/lib/types/enum/PaymentMethod'
 import { ShippingMethod } from '@/lib/types/enum/ShippingMethod'
 import { ShippingStatus } from '@/lib/types/enum/ShippingStatus'
 import type { Product } from '@/lib/types/Product'
-import { PaymentStatus } from '../types/enum/PaymentStatus'
 import type { ApiPaginatedResponse } from '../types/ApiResponse'
-import { SortDirection, type ListQuery } from '../types/ListQuery'
+import { PaymentStatus } from '../types/enum/PaymentStatus'
+import { DEFAULT_LIMIT, SortDirection, type ListQuery } from '../types/ListQuery'
 
 function getNestedValue(obj: any, path: string) {
   return path.split('.').reduce((acc, part) => acc && acc[part], obj)
@@ -12,7 +12,7 @@ function getNestedValue(obj: any, path: string) {
 
 export const getProducts = async ({
   page = 1,
-  limit = 10,
+  limit = DEFAULT_LIMIT,
   sortBy = 'orderDate',
   sortDirection: sortDesc = SortDirection.DESC
 }: ListQuery) => {

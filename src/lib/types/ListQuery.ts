@@ -1,5 +1,7 @@
 import type { LocationQuery } from 'vue-router'
 
+export const DEFAULT_LIMIT = 25
+
 export interface ListQuery {
   limit?: number
   page?: number
