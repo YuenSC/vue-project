@@ -53,13 +53,6 @@ const updateSort = (payload?: { sortBy: string; sortDirection: SortDirection }) 
     })
   }
 }
-
-watch(
-  () => props.meta,
-  () => {
-    console.log('meta', props.meta)
-  }
-)
 </script>
 
 <template>

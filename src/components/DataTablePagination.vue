@@ -19,7 +19,7 @@ import {
 } from '@/components/ui/select'
 import type { PaginationMeta } from '@/lib/types/ApiResponse'
 import { getValidatedListQuery } from '@/lib/types/ListQuery'
-import { watch } from 'vue'
+import { ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
 const { meta } = defineProps<{ meta: PaginationMeta }>()
@@ -29,8 +29,13 @@ const route = useRoute()
 
 const LIMITS = [25, 50, 100, 150] // Define constants
 
+const pageRef = ref(meta.currentPage.toString())
+
 const updatePage = (_page: number | string) => {
   const { page } = getValidatedListQuery({ page: _page as string })
+  if (page) {
+    pageRef.value = page.toString()
+  }
   router.push({
     query: { ...route.query, page }
   })
@@ -41,13 +46,6 @@ const updateLimit = (limit: number) => {
     query: { ...route.query, limit, page: 1 }
   })
 }
-
-watch(
-  () => meta,
-  () => {
-    console.log('meta in page', meta)
-  }
-)
 </script>
 
 <template>
@@ -56,7 +54,8 @@ watch(
     :total="meta.totalItems"
     :sibling-count="1"
     :items-per-page="meta.itemsPerPage"
-    :default-page="meta.currentPage"
+    :page="parseInt(pageRef)"
+    @update:page="updatePage"
     class="flex justify-between items-center"
   >
     <div class="flex gap-2">
@@ -93,7 +92,7 @@ watch(
       <PaginationLast />
     </PaginationList>
 
-    <Select :default-value="meta.currentPage.toString()" @update:model-value="updatePage">
+    <Select :model-value="pageRef" @update:model-value="updatePage">
       <div class="flex gap-2 items-center">
         <span class="text-nowrap text-gray-700">Jump to Page</span>
         <SelectTrigger class="max-w-[200px] min-w-[50px]">

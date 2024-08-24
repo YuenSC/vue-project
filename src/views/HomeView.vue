@@ -14,6 +14,7 @@ const loading = ref(false)
 const route = useRoute()
 
 const fetchProducts = async () => {
+  console.log('fetchProducts')
   loading.value = true
   productsApiResponse.value = await getProducts(getValidatedListQuery(route.query))
   loading.value = false
