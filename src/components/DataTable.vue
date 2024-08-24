@@ -34,14 +34,19 @@ const table = useVueTable({
 const router = useRouter()
 const route = useRoute()
 
-const updateSort = (sortBy: string, sortDirection: SortDirection) => {
-  router.push({
-    query: {
-      ...route.query,
-      sortBy,
-      sortDirection
-    }
-  })
+const updateSort = (payload?: { sortBy: string; sortDirection: SortDirection }) => {
+  if (payload == undefined) {
+    const query = { ...route.query }
+    delete query.sortBy
+    delete query.sortDirection
+    router.push({
+      query: { ...query, page: 1, limit: 10 }
+    })
+  } else {
+    router.push({
+      query: { ...route.query, ...payload, page: 1, limit: 10 }
+    })
+  }
 }
 </script>
 
@@ -68,7 +73,14 @@ const updateSort = (sortBy: string, sortDirection: SortDirection) => {
           </TableHead>
         </TableRow>
       </TableHeader>
-      <TableBody>
+      <TableBody class="relative">
+        <template v-if="isLoading && table.getRowModel().rows?.length">
+          <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50">
+            <div class="bg-white p-4 rounded-sm aspect-square">
+              <span class="pi pi-spin pi-spinner text-2xl text-gray-500"></span>
+            </div>
+          </div>
+        </template>
         <template v-if="table.getRowModel().rows?.length">
           <TableRow
             v-for="row in table.getRowModel().rows"

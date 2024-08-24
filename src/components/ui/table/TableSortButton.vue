@@ -2,18 +2,15 @@
 <script setup lang="ts">
 import { SortDirection, type ListQuery } from '@/lib/types/ListQuery'
 import { defineEmits, defineProps } from 'vue'
+import Button from '../button/Button.vue'
 
-const props = defineProps<{
+defineProps<{
   columnId: string
   listQuery?: ListQuery
-  onUpdateSort: (sortBy: string, sortDirection: SortDirection) => void
+  onUpdateSort: (payload: { sortBy: string; sortDirection: SortDirection }) => void
 }>()
 
 const emits = defineEmits(['updateSort'])
-
-function toggleSort() {
-  emits('updateSort', props.columnId)
-}
 </script>
 
 <template>
@@ -23,7 +20,7 @@ function toggleSort() {
       variant="ghost"
       size="icon"
       class="rounded-full w-8 h-8"
-      @click="toggleSort"
+      @click="() => emits('updateSort', { sortBy: columnId, sortDirection: SortDirection.ASC })"
     >
       <span class="pi pi-sort"></span>
     </Button>
@@ -33,7 +30,7 @@ function toggleSort() {
       variant="ghost"
       size="icon"
       class="rounded-full w-8 h-8"
-      @click="toggleSort"
+      @click="() => emits('updateSort', { sortBy: columnId, sortDirection: SortDirection.DESC })"
     >
       <span class="pi pi-sort-up"></span>
     </Button>
@@ -43,7 +40,7 @@ function toggleSort() {
       variant="ghost"
       size="icon"
       class="rounded-full w-8 h-8"
-      @click="toggleSort"
+      @click="() => emits('updateSort')"
     >
       <span class="pi pi-sort-down"></span>
     </Button>

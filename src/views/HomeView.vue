@@ -32,6 +32,7 @@ watch(() => route.query, fetchProducts, { deep: true })
       :columns="productColumns"
       :data="productsApiResponse?.data ?? []"
       :is-loading="loading"
+      :list-query="route.query"
     />
   </main>
 </template>
