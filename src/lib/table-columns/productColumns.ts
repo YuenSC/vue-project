@@ -13,24 +13,28 @@ export const productColumns: ColumnDef<Product>[] = [
       // format to YYYY-MM-DD HH:mm:ss:ms use date-fns
       const iso = getValue() as string
       return format(new Date(iso), 'yyyy-MM-dd HH:mm:ss')
-    }
+    },
+    enableSorting: true
   },
   {
     accessorKey: 'billNo',
-    header: 'Bill No'
+    header: 'Bill No',
+    enableSorting: true
   },
   {
     accessorKey: 'amount',
     header: 'Total Amount',
     cell: ({ getValue }) => {
       return `HKD ${Number(getValue()).toLocaleString()}`
-    }
+    },
+    enableSorting: true
   },
   {
-    accessorKey: 'buyer',
+    accessorKey: 'buyer.companyName',
     header: 'Buyer',
-    cell: ({ getValue }) => {
-      const { companyName, name } = getValue() as Product['buyer']
+    enableSorting: true,
+    cell: ({ row }) => {
+      const { companyName, name } = row.original.buyer as Product['buyer']
       return `${companyName} / ${name}`
     }
   },

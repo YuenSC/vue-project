@@ -3,18 +3,24 @@ import DataTable from '@/components/DataTable.vue'
 import { getProducts } from '@/lib/data/fake-products'
 import { productColumns } from '@/lib/table-columns/productColumns'
 import type { ApiPaginatedResponse } from '@/lib/types/ApiResponse'
-import { SortDirection } from '@/lib/types/ListQuery'
+import { getValidatedListQuery } from '@/lib/types/ListQuery'
 import type { Product } from '@/lib/types/Product'
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, watch } from 'vue'
+import { useRoute } from 'vue-router'
 
 const productsApiResponse = ref<ApiPaginatedResponse<Product>>()
+const loading = ref(false)
 
-onMounted(async () => {
-  productsApiResponse.value = await getProducts({
-    sortBy: 'buyer.companyName',
-    sortDesc: SortDirection.ASC
-  })
-})
+const route = useRoute()
+
+const fetchProducts = async () => {
+  loading.value = true
+  productsApiResponse.value = await getProducts(getValidatedListQuery(route.query))
+  loading.value = false
+}
+
+onMounted(async () => fetchProducts())
+watch(() => route.query, fetchProducts, { deep: true })
 </script>
 
 <template>
@@ -22,6 +28,10 @@ onMounted(async () => {
     <div>
       {{ JSON.stringify(productsApiResponse?.meta) }}
     </div>
-    <DataTable :columns="productColumns" :data="productsApiResponse?.data ?? []" />
+    <DataTable
+      :columns="productColumns"
+      :data="productsApiResponse?.data ?? []"
+      :is-loading="loading"
+    />
   </main>
 </template>

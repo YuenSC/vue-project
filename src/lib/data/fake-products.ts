@@ -14,7 +14,7 @@ export const getProducts = async ({
   page = 1,
   limit = 10,
   sortBy = 'orderDate',
-  sortDesc = SortDirection.DESC
+  sortDirection: sortDesc = SortDirection.DESC
 }: ListQuery) => {
   await new Promise((resolve) => setTimeout(resolve, 1000))
 

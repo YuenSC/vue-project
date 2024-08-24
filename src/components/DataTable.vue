@@ -1,5 +1,5 @@
 <script setup lang="ts" generic="TData, TValue">
-import type { ColumnDef } from '@tanstack/vue-table'
+import type { ColumnDef, SortDirection } from '@tanstack/vue-table'
 import { FlexRender, getCoreRowModel, useVueTable } from '@tanstack/vue-table'
 
 import {
@@ -10,10 +10,15 @@ import {
   TableHeader,
   TableRow
 } from '@/components/ui/table'
+import { type ListQuery } from '@/lib/types/ListQuery'
+import TableSortButton from './ui/table/TableSortButton.vue'
+import { useRoute, useRouter } from 'vue-router'
 
 const props = defineProps<{
   columns: ColumnDef<TData, TValue>[]
   data: TData[]
+  listQuery?: ListQuery
+  isLoading?: boolean
 }>()
 
 const table = useVueTable({
@@ -25,6 +30,19 @@ const table = useVueTable({
   },
   getCoreRowModel: getCoreRowModel()
 })
+
+const router = useRouter()
+const route = useRoute()
+
+const updateSort = (sortBy: string, sortDirection: SortDirection) => {
+  router.push({
+    query: {
+      ...route.query,
+      sortBy,
+      sortDirection
+    }
+  })
+}
 </script>
 
 <template>
@@ -33,11 +51,20 @@ const table = useVueTable({
       <TableHeader>
         <TableRow v-for="headerGroup in table.getHeaderGroups()" :key="headerGroup.id">
           <TableHead v-for="header in headerGroup.headers" :key="header.id">
-            <FlexRender
-              v-if="!header.isPlaceholder"
-              :render="header.column.columnDef.header"
-              :props="header.getContext()"
-            />
+            <div class="flex justify-between">
+              <FlexRender
+                v-if="!header.isPlaceholder"
+                :render="header.column.columnDef.header"
+                :props="header.getContext()"
+              />
+
+              <TableSortButton
+                v-if="header.column.columnDef.enableSorting"
+                :columnId="header.id"
+                :listQuery="listQuery"
+                @update-sort="updateSort"
+              />
+            </div>
           </TableHead>
         </TableRow>
       </TableHeader>
@@ -51,6 +78,11 @@ const table = useVueTable({
             <TableCell v-for="cell in row.getVisibleCells()" :key="cell.id">
               <FlexRender :render="cell.column.columnDef.cell" :props="cell.getContext()" />
             </TableCell>
+          </TableRow>
+        </template>
+        <template v-else-if="isLoading">
+          <TableRow>
+            <TableCell :colspan="columns.length" class="h-24 text-center"> Loading... </TableCell>
           </TableRow>
         </template>
         <template v-else>
