@@ -42,7 +42,7 @@ const formatFormData = (formData: Record<string, string | number | undefined>) =
   const query: Record<string, string | undefined> = {}
   for (const key in formData) {
     if (formData[key] !== undefined) {
-      query[key] = formData[key].toString().trim() || undefined
+      query[key] = formData[key]?.toString().trim() || undefined
     }
   }
   return query
